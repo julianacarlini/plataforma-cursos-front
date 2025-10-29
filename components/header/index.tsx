@@ -24,9 +24,9 @@ export default function Header(props: Props) {
             </a>
             {!props.login && <>
             <ul id="menu-list" className={`nav-list ${isMenuOpen && "active"}`}>
-                <li><a href="#sobre" className="button">Sobre</a></li>
-                <li><Link href="/curso" className="button">Cursos</Link></li>
-                <li><a href="#como-se-inscrever" className="button">Como se inscrever</a></li>
+                <li><a href="/#sobre" className="button">Sobre</a></li>
+                <li><Link href="/cursos" className="button">Cursos</Link></li>
+                <li><a href="/#como-se-inscrever" className="button">Como se inscrever</a></li>
                 {/*<li id="dark-mode-toggle-mobile" className="dark-mode-toggle-mobile">
                     <span>Tema</span>
                     <div className="theme-icon-container">

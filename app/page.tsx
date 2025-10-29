@@ -62,7 +62,10 @@ export default function Home() {
                     </div>
                 </section>
 
-                <Courses />
+                <section className='courses' aria-labelledby="cursos-disponiveis">
+                    <h1 id='cursos-disponiveis'>Cursos Disponíveis</h1>
+                    <Courses />
+                </section>
 
                 <section className="how-to" id="como-se-inscrever" aria-labelledby="instrucoes-inscrever">
                     <h1 id="instrucoes-inscrever">Como me inscrever?</h1>
