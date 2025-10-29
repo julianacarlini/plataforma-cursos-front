@@ -1,13 +1,11 @@
-import router from "next/router"
-
-
+'use client'
 export const useUser = () => {
     const logout = () => {
-        localStorage.removeItem('user')
-        localStorage.removeItem('access_token')
+        localStorage?.removeItem('user')
+        localStorage?.removeItem('access_token')
         window.location.href='/login'
     }
-    const data = localStorage.getItem('user')
+    const data = localStorage?.getItem('user')
     let user
     if(data) {
         user = JSON.parse(data)

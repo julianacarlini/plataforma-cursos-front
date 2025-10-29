@@ -1,4 +1,5 @@
 "use client"
+
 import Header from '@/components/header'
 import { useState, FormEvent } from 'react'
 import { api } from '@/app/apiClient'
@@ -6,7 +7,6 @@ import { api } from '@/app/apiClient'
 const hasSpecial = (s: string)=> /[^A-Za-z0-9]/.test(s)
 const onlyDigits = (s: string)=> s.replace(/\D/g, '')
 function isValidCPF(cpf: string) {
-  // validação rápida; para produção, use uma lib confiável
   cpf = onlyDigits(cpf)
   if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false
   let soma=0; for (let i=0;i<9;i++) soma+=parseInt(cpf.charAt(i))*(10-i)
@@ -15,11 +15,14 @@ function isValidCPF(cpf: string) {
   let d2=11-(soma%11); if (d2>9) d2=0; return d2===parseInt(cpf.charAt(10))
 }
 
+type Role = 'ALUNO' | 'PROFESSOR'
+
 export default function Cadastro() {
   const [name, setName] = useState('')
   const [cpf, setCpf] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [role, setRole] = useState<Role>('ALUNO') // << NOVO: papel
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
@@ -42,23 +45,25 @@ export default function Cadastro() {
       setError('A senha deve ter 8+ caracteres e ao menos 1 caractere especial.')
       return
     }
+    if (!role) { setError('Selecione o tipo de usuário'); return }
 
     setSubmitting(true)
     try {
-      // envia cpf sem máscara
+      // envia cpf sem máscara + role selecionada (ALUNO|PROFESSOR)
       await api('/api/auth/register', {
         method: 'POST',
         body: JSON.stringify({
           name: name.trim(),
           cpf: onlyDigits(cpf),
           email: email.trim(),
-          password
+          password,
+          role, // << NOVO: enviado ao back
         }),
       } as any)
 
       setSuccess('Cadastro realizado! Você já pode fazer login.')
       ;(document.getElementById('cadastroForm') as HTMLFormElement)?.reset()
-      setName(''); setCpf(''); setEmail(''); setPassword('')
+      setName(''); setCpf(''); setEmail(''); setPassword(''); setRole('ALUNO')
     } catch (err: any) {
       setError(err.message || 'Erro no cadastro')
     } finally {
@@ -104,6 +109,21 @@ export default function Cadastro() {
               <small className="password-tip">A senha deve conter 8+ caracteres</small>
               <small className="password-tip">Inclua pelo menos um caractere especial</small>
             </div>
+          </div>
+
+          {/* NOVO: seletor de tipo de usuário */}
+          <div className="form-group">
+            <label htmlFor="tipo">Tipo de usuário</label>
+            <select
+              id="tipo"
+              value={role}
+              onChange={e=>setRole(e.target.value as Role)}
+              required
+            >
+              <option value="ALUNO">Aluno</option>
+              <option value="PROFESSOR">Professor</option>
+            </select>
+            <small>Seu cadastro será criado com esse perfil. Admins podem ajustar depois.</small>
           </div>
 
           <button type="submit" className="btn-login" disabled={submitting}>
