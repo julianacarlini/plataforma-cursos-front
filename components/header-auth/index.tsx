@@ -27,13 +27,9 @@ export default function HeaderAuth(props: Props) {
                 </a>
                 {!props.login && <>
                     <ul id="menu-list" className={`nav-list ${isMenuOpen && "active"}`}>
-                        <li>{user?.role === 'ALUNO' && <Link href="/aluno">Dashboard</Link>}
-                            {user?.role === 'PROFESSOR' && <Link href="/professor">Dashboard</Link>}
-                            {user?.role === 'ADMIN' && <Link href="/admin">Admin</Link>}
-                        </li>
                         <li><Link href="/cursos" className="button">Cursos</Link></li>
-                        <li><Link href="/conta">Conta</Link></li>
-                        <li><button onClick={logout}>Sair</button></li>
+                        <li><Link href="/conta" className="button">Conta</Link></li>
+                        <li><button className="button" onClick={logout}>Sair</button></li>
                     </ul>
                     <div className={`hamburguer-menu ${isMenuOpen && "active"}`} onClick={handleOpenMenu} role="button" aria-expanded="false" aria-controls="menu-list"
                         aria-label="Ícone menu">

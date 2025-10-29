@@ -60,7 +60,7 @@ export default function DashboardAdmin() {
 
           <section>
             <h1>Usuários</h1>
-            <Link href={'/cadastro'}>
+            <Link href={'/cadastro'} className="cta-btn">
               <div>Adicionar usuário</div>
             </Link>
 
@@ -86,32 +86,8 @@ export default function DashboardAdmin() {
                 )}
               </tbody>
             </table>
-            <h2>Para aprovar</h2>
-            {!pending.length ? <p>Sem pendências</p> :
-              <table><thead><tr><th>ID</th><th>Título</th><th></th></tr></thead>
-                <tbody>{pending.map(c => (
-                  <tr key={c.id}>
-                    <td>{c.id}</td><td>{c.title}</td>
-                    <td>
-                      <button onClick={() => approve(c.id)}>Aprovar</button>
-                      <button onClick={() => archive(c.id)} style={{ marginLeft: 8 }}>Arquivar</button>
-                    </td>
-                  </tr>
-                ))}</tbody>
-              </table>}
           </section>
 
-          <section>
-            <h2>Cursos</h2>
-            <table><thead><tr><th>ID</th><th>Título</th><th></th></tr></thead>
-              <tbody>{courses.map(c => (
-                <tr key={c.id}>
-                  <td>{c.id}</td><td>{c.title}</td>
-                  <td><button onClick={() => remove(c.id)}>Excluir</button></td>
-                </tr>
-              ))}</tbody>
-            </table>
-          </section>
         </main>
       </div>
     </Protected>

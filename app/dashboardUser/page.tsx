@@ -34,8 +34,6 @@ function DashboardInner() {
       <main className="main">
         <h1>{isAluno ? 'Dashboard do Aluno' : 'Dashboard do Professor'}</h1>
 
-        <CourseSearch source={isAluno ? 'aluno' : 'professor'} />
-
         {isAluno && (
           <section style={{ marginTop: 24 }}>
             {/* Ex.: atalhos do aluno */}

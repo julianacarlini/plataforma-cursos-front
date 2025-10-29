@@ -8,20 +8,18 @@ import { useUser } from "@/components/useUser/useUser";
 import { useEffect, useState } from "react"
 
 export default function Cursos() {
-    const { user } = useUser()
+    const { user, loading } = useUser()
     const [isClient, setIsClient] = useState(false)
 
     useEffect(()=>{setIsClient(true)}, []) // O array vazio [] garante que isso só rode uma vez
+
+    const showRecommended = isClient && !loading && !!user
 
     return (
         <div className='background'>
             <Header />
 
             <div className='main'>
-
-                <div>
-                    <h1>filtro/pesquisa</h1>
-                </div>
 
                 <section className='courses' aria-labelledby="cursos-disponiveis">
                     <h1 id='cursos-destaque'>Destaques</h1>
@@ -33,7 +31,7 @@ export default function Cursos() {
                     <Courses tag="new" />
                 </section>
 
-                {isClient && user && <section><Recomendados /></section>}
+                {showRecommended && <section><Recomendados /></section>}
 
             </div>
 

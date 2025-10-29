@@ -111,7 +111,6 @@ export default function Cadastro() {
             </div>
           </div>
 
-          {/* NOVO: seletor de tipo de usuário */}
           <div className="form-group">
             <label htmlFor="tipo">Tipo de usuário</label>
             <select
@@ -123,7 +122,6 @@ export default function Cadastro() {
               <option value="ALUNO">Aluno</option>
               <option value="PROFESSOR">Professor</option>
             </select>
-            <small>Seu cadastro será criado com esse perfil. Admins podem ajustar depois.</small>
           </div>
 
           <button type="submit" className="btn-login" disabled={submitting}>
